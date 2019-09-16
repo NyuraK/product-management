@@ -12,6 +12,8 @@
         <module>api</module>
         <module>impl</module>
     </modules>
-
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
 </project>
