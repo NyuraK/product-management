@@ -1,0 +1,51 @@
+openapi: 3.0.1
+info:
+  version: '1.0'
+  title: Product service
+servers:
+  - url: '/api/v1/product-service'
+tags:
+  - name: Product Management
+    description: Operations with Product entities
+paths:
+  /product/{id}:
+    get:
+      tags:
+        - Product Management
+      summary: Get Product
+      description: Get Product by id
+      operationId: get
+      parameters:
+        - $ref: '#/components/schema/id'
+      responses:
+        '200':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Product ID
+      required: true
+      schema:
+        type: integer
+        format: int64
+      example: 59949
+  schemas:
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          description: Unique Identifier of Product.
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          description: Name of Product.
+          type: string
+          readOnly: true
+          maxLength: 100
