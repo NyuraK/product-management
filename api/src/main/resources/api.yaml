@@ -8,6 +8,22 @@ tags:
   - name: Product Management
     description: Operations with Product entities
 paths:
+  /product:
+    post:
+      tags:
+        - Product Management
+      summary: Create Product
+      description: Create Product
+      operationId: create
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProductDTO'
+      responses:
+        '200':
+          description: Created product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
   /product/{id}:
     get:
       tags:
@@ -16,14 +32,60 @@ paths:
       description: Get Product by id
       operationId: get
       parameters:
-        - $ref: '#/components/schema/id'
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
-          description: Unexpected error
+          description: OK. Product succesfully returned
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductDTO'
+        '404':
+          description: Product not found
+    put:
+      tags:
+        - Product Management
+      summary: Update Product
+      description: Update Product by id
+      operationId: update
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProductDTO'
+      responses:
+        '200':
+          description: Ok. Updated product succesfully returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+    delete:
+      tags:
+        - Product Management
+      summary: Delete Product
+      description: Delete Product by id
+      operationId: delete
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: OK. Product succesfully deleted
+  /products:
+    get:
+      tags:
+        - Product Management
+      summary: Get all products
+      description: Get all products
+      operationId: getAllProducts
+      responses:
+        '200':
+          description: All existing products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
 components:
   parameters:
     id:
@@ -32,20 +94,46 @@ components:
       description: Product ID
       required: true
       schema:
-        type: integer
-        format: int64
-      example: 59949
+        type: string
+  requestBodies:
+    CreateProductDTO:
+      description: Product request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProductDTO'
   schemas:
     ProductDTO:
       type: object
       properties:
         id:
           description: Unique Identifier of Product.
-          type: integer
-          format: int64
+          type: string
           readOnly: true
+        type:
+          $ref: '#/components/schemas/ProductType'
         name:
           description: Name of Product.
           type: string
           readOnly: true
           maxLength: 100
+        cost:
+          description: Cost of Product.
+          type: number
+          format: double
+          readOnly: true
+        amount:
+          description: Amount of Product.
+          type: integer
+          format: int32
+          readOnly: true
+
+    ProductType:
+      type: string
+      enum:
+        - FOOD
+        - CLOTHES
+        - SHOES
+        - FURNITURE
+        - CARS
+        - COMPUTERS
