@@ -133,7 +133,4 @@ components:
       enum:
         - FOOD
         - CLOTHES
-        - SHOES
         - FURNITURE
-        - CARS
-        - COMPUTERS

@@ -6,12 +6,14 @@ import com.shop.model.Product;
 import com.shop.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Slf4j
 public class ProductService {
     private ProductsRepository repository;
 
@@ -21,6 +23,7 @@ public class ProductService {
     }
 
     public ProductDTO getProduct(String id){
+        log.info("Get product by id {}", id);
         Product product = repository.findById(id).orElse(null);
         if (product != null)
             return convertToDTO(product);
@@ -39,6 +42,7 @@ public class ProductService {
     }
 
     public ProductDTO createProduct(ProductDTO productDTO) {
+        log.info("Create new product");
         Product product = convertToEntity(productDTO);
         repository.save(product);
         return convertToDTO(product);
@@ -54,6 +58,7 @@ public class ProductService {
     }
 
     public void deleteProduct(String id){
+        log.info("Delete product with id {}", id);
         Product product = repository.findById(id).orElse(null);
         if (product == null)
             throw new ProductNotFoundException(id);
@@ -61,11 +66,13 @@ public class ProductService {
     }
 
     public List<ProductDTO> getAllProducts(){
+        log.info("Get all products");
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(this::convertToDTO).collect(Collectors.toList());
     }
 
     public ProductDTO updateProduct(String id, ProductDTO productDTO){
+        log.info("Update product with id {}", productDTO.getId());
         Product product = repository.findById(id).orElse(null);
         if (product == null)
             throw new ProductNotFoundException(id);
