@@ -8,7 +8,22 @@ tags:
   - name: Product Management
     description: Operations with Product entities
 paths:
-  /product:
+  /products:
+    get:
+      tags:
+        - Product Management
+      summary: Get all products
+      description: Get all products
+      operationId: getAllProducts
+      responses:
+        '200':
+          description: All existing products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
     post:
       tags:
         - Product Management
@@ -24,7 +39,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductDTO'
-  /product/{id}:
+  /products/{id}:
     get:
       tags:
         - Product Management
@@ -70,22 +85,6 @@ paths:
       responses:
         '200':
           description: OK. Product succesfully deleted
-  /products:
-    get:
-      tags:
-        - Product Management
-      summary: Get all products
-      description: Get all products
-      operationId: getAllProducts
-      responses:
-        '200':
-          description: All existing products
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ProductDTO'
 components:
   parameters:
     id:
