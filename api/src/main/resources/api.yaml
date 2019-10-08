@@ -3,7 +3,7 @@ info:
   version: '1.0'
   title: Product service
 servers:
-  - url: '/api/v1/product-service'
+  - url: '/product-service/api/v1'
 tags:
   - name: Product Management
     description: Operations with Product entities
