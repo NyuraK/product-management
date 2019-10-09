@@ -1,6 +1,6 @@
 package com.shop.service;
 
-import com.shop.api.swagger.models.ProductDTO;
+import com.shop.api.swagger.models.ProductDto;
 import com.shop.exception.ProductNotFoundException;
 import com.shop.model.Product;
 import com.shop.repository.ProductsRepository;
@@ -22,38 +22,38 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public ProductDTO getProduct(String id){
+    public ProductDto getProduct(String id){
         log.info("Get product by id {}", id);
         Product product = repository.findById(id).orElse(null);
         if (product != null)
-            return convertToDTO(product);
+            return convertToDto(product);
         else
             throw new ProductNotFoundException(id);
     }
 
-    private ProductDTO convertToDTO(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.id(product.getId());
-        productDTO.type(product.getType());
-        productDTO.name(product.getName());
-        productDTO.cost(product.getCost());
-        productDTO.amount(product.getAmount());
-        return productDTO;
+    private ProductDto convertToDto(Product product) {
+        ProductDto productDto = new ProductDto();
+        productDto.id(product.getId());
+        productDto.type(product.getType());
+        productDto.name(product.getName());
+        productDto.cost(product.getCost());
+        productDto.amount(product.getAmount());
+        return productDto;
     }
 
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductDto createProduct(ProductDto productDto) {
         log.info("Create new product");
-        Product product = convertToEntity(productDTO);
+        Product product = convertToEntity(productDto);
         repository.save(product);
-        return convertToDTO(product);
+        return convertToDto(product);
     }
 
-    private Product convertToEntity(ProductDTO productDTO) {
+    private Product convertToEntity(ProductDto productDto) {
         Product product = new Product();
-        product.setType(productDTO.getType());
-        product.setName(productDTO.getName());
-        product.setCost(productDTO.getCost());
-        product.setAmount(productDTO.getAmount());
+        product.setType(productDto.getType());
+        product.setName(productDto.getName());
+        product.setCost(productDto.getCost());
+        product.setAmount(productDto.getAmount());
         return product;
     }
 
@@ -65,26 +65,26 @@ public class ProductService {
         repository.delete(product);
     }
 
-    public List<ProductDTO> getAllProducts(){
+    public List<ProductDto> getAllProducts(){
         log.info("Get all products");
         return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(this::convertToDTO).collect(Collectors.toList());
+                .map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public ProductDTO updateProduct(String id, ProductDTO productDTO){
-        log.info("Update product with id {}", productDTO.getId());
+    public ProductDto updateProduct(String id, ProductDto productDto){
+        log.info("Update product with id {}", productDto.getId());
         Product product = repository.findById(id).orElse(null);
         if (product == null)
             throw new ProductNotFoundException(id);
-        if (productDTO.getType() != null)
-            product.setType(productDTO.getType());
-        if (productDTO.getName() != null)
-            product.setName(productDTO.getName());
-        if (productDTO.getCost() != null)
-            product.setCost(productDTO.getCost());
-        if (productDTO.getAmount() != null)
-            product.setAmount(productDTO.getAmount());
+        if (productDto.getType() != null)
+            product.setType(productDto.getType());
+        if (productDto.getName() != null)
+            product.setName(productDto.getName());
+        if (productDto.getCost() != null)
+            product.setCost(productDto.getCost());
+        if (productDto.getAmount() != null)
+            product.setAmount(productDto.getAmount());
         repository.save(product);
-        return convertToDTO(product);
+        return convertToDto(product);
     }
 }

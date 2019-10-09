@@ -23,7 +23,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ProductDTO'
+                  $ref: '#/components/schemas/ProductDto'
     post:
       tags:
         - Product Management
@@ -31,14 +31,14 @@ paths:
       description: Create Product
       operationId: create
       requestBody:
-        $ref: '#/components/requestBodies/CreateProductDTO'
+        $ref: '#/components/requestBodies/CreateProductDto'
       responses:
         '200':
           description: Created product
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductDTO'
+                $ref: '#/components/schemas/ProductDto'
   /products/{id}:
     get:
       tags:
@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductDTO'
+                $ref: '#/components/schemas/ProductDto'
         '404':
           description: Product not found
     put:
@@ -66,14 +66,14 @@ paths:
       parameters:
         - $ref: '#/components/parameters/id'
       requestBody:
-        $ref: '#/components/requestBodies/CreateProductDTO'
+        $ref: '#/components/requestBodies/CreateProductDto'
       responses:
         '200':
           description: Ok. Updated product succesfully returned
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductDTO'
+                $ref: '#/components/schemas/ProductDto'
     delete:
       tags:
         - Product Management
@@ -95,14 +95,14 @@ components:
       schema:
         type: string
   requestBodies:
-    CreateProductDTO:
+    CreateProductDto:
       description: Product request
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ProductDTO'
+            $ref: '#/components/schemas/ProductDto'
   schemas:
-    ProductDTO:
+    ProductDto:
       type: object
       properties:
         id:
