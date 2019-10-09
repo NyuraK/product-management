@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -67,7 +68,7 @@ public class ProductService {
 
     public List<ProductDto> getAllProducts(){
         log.info("Get all products");
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
+        return repository.findAll().stream()
                 .map(this::convertToDto).collect(Collectors.toList());
     }
 
@@ -86,5 +87,9 @@ public class ProductService {
             product.setAmount(productDto.getAmount());
         repository.save(product);
         return convertToDto(product);
+    }
+
+    public List<ProductDto> getAllProducts(List<String> list){
+        return repository.findAllByIdIn(list).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 }

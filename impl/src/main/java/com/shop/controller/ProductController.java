@@ -42,7 +42,12 @@ public class ProductController implements ProductManagementApi {
     }
 
     @Override
-    public ResponseEntity<List<ProductDto>> getAllProducts() {
-        return ResponseEntity.ok(service.getAllProducts());
+    public ResponseEntity<List<ProductDto>> getAllProducts(List<String> list) {
+        if (list.isEmpty()){
+            return ResponseEntity.ok(service.getAllProducts());
+        }
+        else {
+            return ResponseEntity.ok(service.getAllProducts(list));
+        }
     }
 }
