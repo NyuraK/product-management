@@ -73,23 +73,18 @@ public class ProductService {
     }
 
     public ProductDto updateProduct(String id, ProductDto productDto){
-        log.info("Update product with id {}", productDto.getId());
+        log.info("Update product with id {}", id);
         Product product = repository.findById(id).orElse(null);
         if (product == null)
             throw new ProductNotFoundException(id);
-        if (productDto.getType() != null)
-            product.setType(productDto.getType());
-        if (productDto.getName() != null)
-            product.setName(productDto.getName());
-        if (productDto.getCost() != null)
-            product.setCost(productDto.getCost());
-        if (productDto.getAmount() != null)
-            product.setAmount(productDto.getAmount());
+        product = convertToEntity(productDto);
+        product.setId(id);
         repository.save(product);
         return convertToDto(product);
     }
 
     public List<ProductDto> getAllProducts(List<String> list){
+        log.info("Get products with ids {}", list);
         return repository.findAllByIdIn(list).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 }
