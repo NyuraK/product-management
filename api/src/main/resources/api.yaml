@@ -31,7 +31,7 @@ paths:
         - Product Management
       summary: Create Product
       description: Create Product
-      operationId: create
+      operationId: createProduct
       requestBody:
         $ref: '#/components/requestBodies/CreateProductDto'
       responses:
@@ -47,7 +47,7 @@ paths:
         - Product Management
       summary: Get Product
       description: Get Product by id
-      operationId: get
+      operationId: getProductById
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
@@ -64,7 +64,7 @@ paths:
         - Product Management
       summary: Update Product
       description: Update Product by id
-      operationId: update
+      operationId: updateProductById
       parameters:
         - $ref: '#/components/parameters/id'
       requestBody:
@@ -81,7 +81,7 @@ paths:
         - Product Management
       summary: Delete Product
       description: Delete Product by id
-      operationId: delete
+      operationId: deleteProductById
       parameters:
         - $ref: '#/components/parameters/id'
       responses:

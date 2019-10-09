@@ -21,23 +21,23 @@ public class ProductController implements ProductManagementApi {
     }
 
     @Override
-    public ResponseEntity<ProductDto> get(String id) {
+    public ResponseEntity<ProductDto> getProductById(String id) {
         return ResponseEntity.ok(service.getProduct(id));
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public ResponseEntity<Void> deleteProductById(String id) {
         service.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<ProductDto> create(ProductDto productDto) {
+    public ResponseEntity<ProductDto> createProduct(ProductDto productDto) {
         return ResponseEntity.ok(service.createProduct(productDto));
     }
 
     @Override
-    public ResponseEntity<ProductDto> update(String id, ProductDto productDto) {
+    public ResponseEntity<ProductDto> updateProductById(String id, ProductDto productDto) {
         return ResponseEntity.ok(service.updateProduct(id, productDto));
     }
 
