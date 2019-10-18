@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("${api.prefix}")
@@ -33,11 +34,13 @@ public class ProductController implements ProductManagementApi {
 
     @Override
     public ResponseEntity<ProductDto> createProduct(ProductDto productDto) {
+        Objects.requireNonNull(productDto);
         return ResponseEntity.ok(service.createProduct(productDto));
     }
 
     @Override
     public ResponseEntity<ProductDto> updateProductById(String id, ProductDto productDto) {
+        Objects.requireNonNull(productDto);
         return ResponseEntity.ok(service.updateProduct(id, productDto));
     }
 
