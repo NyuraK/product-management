@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -86,5 +87,13 @@ public class ProductService {
     public List<ProductDto> getAllProducts(List<String> list){
         log.info("Get products with ids {}", list);
         return repository.findAllByIdIn(list).stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public void decreaseProductAmount(Map<String, Integer> products) {
+        List<Product> productList = repository.findAllByIdIn(new ArrayList<>(products.keySet()));
+        for (Product product : productList) {
+            product.setAmount(product.getAmount()-products.get(product.getId()));
+        }
+        repository.saveAll(productList);
     }
 }
