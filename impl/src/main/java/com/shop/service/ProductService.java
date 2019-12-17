@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @Slf4j
@@ -90,6 +89,7 @@ public class ProductService {
     }
 
     public void decreaseProductAmount(Map<String, Integer> products) {
+        if (products == null) return;
         List<Product> productList = repository.findAllByIdIn(new ArrayList<>(products.keySet()));
         for (Product product : productList) {
             product.setAmount(product.getAmount()-products.get(product.getId()));
