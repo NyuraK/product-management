@@ -5,14 +5,14 @@ import com.shop.api.swagger.models.ProductDto;
 import com.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Objects;
+import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("${api.prefix}")
+@Api("Product management")
 public class ProductController implements ProductManagementApi {
     private ProductService service;
 
@@ -46,7 +46,7 @@ public class ProductController implements ProductManagementApi {
 
     @Override
     public ResponseEntity<List<ProductDto>> getAllProducts(List<String> list) {
-        if (list.isEmpty()){
+        if (list==null || list.isEmpty()){
             return ResponseEntity.ok(service.getAllProducts());
         }
         else {

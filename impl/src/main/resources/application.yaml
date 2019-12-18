@@ -1,0 +1,33 @@
+server:
+  port:  8080
+spring:
+  application:
+    name: product-management
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: products
+api:
+  prefix: /product-service/api/v1
+rabbitmq:
+  payment:
+    topic: payment
+    queue: update-products
+    routingKey: paid.product
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${REGISTRY_HOST:localhost}:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    com.shop: debug
+    org.springframework: info
